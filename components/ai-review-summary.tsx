@@ -4,11 +4,17 @@ import { summarizeReviews } from "@/lib/ai-summary";
 import { FiveStarRating } from "./five-star-rating";
 
 export async function AIReviewSummary({ product }: { product: Product }) {
-  const summary = await summarizeReviews(product);
-
   const averageRating =
     product.reviews.reduce((acc, review) => acc + review.stars, 0) /
     product.reviews.length;
+
+  let summary: string | null = null;
+  try {
+    summary = await summarizeReviews(product);
+  } catch (error) {
+    // AI summary unavailable - show fallback UI
+    console.error("AI summary unavailable:", error);
+  }
 
   return (
     <Card className="w-full max-w-prose p-10 grid gap-10">
@@ -27,9 +33,15 @@ export async function AIReviewSummary({ product }: { product: Product }) {
         </div>
       </CardHeader>
       <CardContent className="p-0 grid gap-4">
-        <p className="text-sm leading-loose text-gray-500 dark:text-gray-400">
-          {summary}
-        </p>
+        {summary ? (
+          <p className="text-sm leading-loose text-gray-500 dark:text-gray-400">
+            {summary}
+          </p>
+        ) : (
+          <p className="text-sm leading-loose text-muted-foreground italic">
+            AI summary unavailable. Please add a credit card to your Vercel account to enable this feature.
+          </p>
+        )}
       </CardContent>
     </Card>
   );
