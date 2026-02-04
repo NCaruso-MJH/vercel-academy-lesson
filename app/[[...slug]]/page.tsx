@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { FiveStarRating } from "@/components/five-star-rating";
-import { Reviews } from "@/components/reviews";
+import { FilterableReviews } from "@/components/filterable-reviews";
+import { ThemeSelector } from "@/components/theme-selector";
 import { getProduct, getProducts } from "@/lib/sample-data";
 
 export default async function Page({
@@ -39,7 +40,10 @@ function HomePage() {
   return (
     <main className="min-h-screen p-8">
       <div className="max-w-4xl mx-auto space-y-8">
-        <h1 className="text-4xl font-bold">Product Reviews</h1>
+        <div className="flex items-center gap-4">
+          <ThemeSelector />
+          <h1 className="text-4xl font-bold">Product Reviews</h1>
+        </div>
 
         <div className="grid gap-4">
           {products.map((product) => (
@@ -81,18 +85,21 @@ function ProductPage({ category, productId }: { category: string; productId: str
 
   return (
     <main className="min-h-screen p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
+      <div className="max-w-5xl mx-auto space-y-8">
         <div>
           <p className="text-sm text-muted-foreground uppercase tracking-wide">
             {product.category}
           </p>
-          <h1 className="text-4xl font-bold">{product.name}</h1>
+          <div className="flex items-center gap-4">
+            <ThemeSelector />
+            <h1 className="text-4xl font-bold">{product.name}</h1>
+          </div>
           <p className="text-lg text-muted-foreground mt-2">
             {product.description}
           </p>
         </div>
 
-        <Reviews product={product} />
+        <FilterableReviews product={product} />
       </div>
     </main>
   );

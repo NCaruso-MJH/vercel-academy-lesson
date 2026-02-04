@@ -5,7 +5,7 @@ export const sampleProductsReviews: Record<string, Product> = {
     slug: "mower",
     category: "outdoor",
     name: "Mower3000",
-    description: "Autonomous robotic lawn mower with smart navigation",
+    description: "Autonomous robotic lawn mower with smart navigation and GPS mapping",
     reviews: [
       {
         reviewer: "John D.",
