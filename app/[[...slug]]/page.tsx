@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { FiveStarRating } from "@/components/five-star-rating";
 import { FilterableReviews } from "@/components/filterable-reviews";
+import { AIReviewSummary } from "@/components/ai-review-summary";
 import { ThemeSelector } from "@/components/theme-selector";
 import { getProduct, getProducts } from "@/lib/sample-data";
 
@@ -98,6 +99,8 @@ function ProductPage({ category, productId }: { category: string; productId: str
             {product.description}
           </p>
         </div>
+
+        <AIReviewSummary product={product} />
 
         <FilterableReviews product={product} />
       </div>
